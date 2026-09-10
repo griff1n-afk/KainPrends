@@ -1,0 +1,431 @@
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 600px;
+}
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.hero-slide.active {
+    opacity: 1;
+}
+.hero-dots {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+.hero-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.hero-dot:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.hero-dot.active {
+    background-color: #f9bc60;
+    transform: scale(1.2);
+}
+.hero-overlay-tint {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 70, 67, 0.45);
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+    z-index: 2;
+}
+
+.hero-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #fffffe;
+    margin-bottom: 16px;
+    max-width: 700px;
+}
+
+.hero-subtext {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #e8e4e6;
+    margin-bottom: 28px;
+    max-width: 500px;
+}
+
+.hero-cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 24px;
+    background-color: #f9bc60;
+    color: #001e1d;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(249, 188, 96, 0.4);
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.hero-cta:hover {
+    background-color: #ffc873;
+    box-shadow: 0 6px 20px rgba(249, 188, 96, 0.55);
+    transform: translateY(-2px);
+}
+
+.hero-cta:active {
+    transform: scale(0.97);
+}
+
+.recipe-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-header {
+    text-align: center;
+    margin: 60px 0 40px;
+    padding: 0 48px;
+}
+
+.section-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    color: #001e1d;
+    margin-bottom: 8px;
+}
+
+.section-header p {
+    font-family: 'Inter', sans-serif;
+    color: #0f3433;
+    font-size: 15px;
+}
+
+.recipe-grid {
+  order: 3;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 32px;
+  padding: 0 48px;
+}
+
+@media (max-width: 1200px) {
+  .recipe-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .recipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .recipe-grid {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 24px;
+  }
+}
+
+.see-all-link {
+    position: absolute;
+    top: 110px;
+    right: 48px;
+    order: 2;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #001e1d;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+}
+
+.see-all-link:hover {
+    color: #f9bc60;
+}
+
+@media (max-width: 640px) {
+    .see-all-link {
+        position: static;
+        display: block;
+        text-align: center;
+        margin: 32px auto 0;
+        order: 4;
+    }
+}
+
+.recipe-card {
+    background-color: #fffffe;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 30, 29, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.recipe-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 30, 29, 0.15);
+}
+
+.recipe-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.recipe-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.recipe-card:hover .recipe-card-image {
+    transform: scale(1.08);
+}
+
+.recipe-card:hover .fb-small {
+  opacity: 1;
+}
+
+.recipe-card-category {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: rgba(249, 188, 96, 0.95);
+    color: #001e1d;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.recipe-card-image-wrapper .fb-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.recipe-card-body {
+    padding: 16px 18px;
+}
+
+.recipe-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: #001e1d;
+    margin-bottom: 6px;
+}
+
+.recipe-card-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #0f3433;
+}
+
+.recipe-card-skeleton {
+    height: 320px;
+    border-radius: 16px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 30, 29, 0.05) 25%,
+        rgba(0, 30, 29, 0.1) 50%,
+        rgba(0, 30, 29, 0.05) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.category-section {
+    background-color: #abd1c6;
+    padding: 60px 0;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+.category-section-header {
+    text-align: center;
+    padding: 0 48px;
+}
+
+.category-section-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    color: #001e1d;
+    margin-bottom: 8px;
+}
+
+.category-section-header p {
+    font-family: 'Inter', sans-serif;
+    color: #0f3433;
+    font-size: 15px;
+}
+
+.category-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 36px;
+    background-color: transparent;
+    color: #004643;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1.5px solid #004643;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.category-pill:hover {
+    background-color: #004643;
+    color: #fffffe;
+    transform: translateY(-2px);
+}
+
+.category-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    padding: 100px 48px;
+    text-align: left;
+}
+
+.about-text {
+    flex: 1;
+    max-width: 480px;
+}
+
+.about-text h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    color: #001e1d;
+    margin-bottom: 16px;
+}
+
+.about-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #0f3433;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.about-link {
+    display: inline-block;
+    color: #e16162;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+.about-link:hover {
+    color: #c94a4b;
+}
+
+.about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.highlight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #001e1d;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.highlight svg {
+    color: #f9bc60;
+    flex-shrink: 0;
+}
+
+.about-cta button {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 30px;
+    background-color: #f9bc60;
+    color: #001e1d;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(249, 188, 96, 0.35);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.about-cta button:hover {
+    background-color: #ffc873;
+    transform: translateY(-2px);
+}
+
+.about-image {
+    flex: 1;
+    max-width: 480px;
+}
+
+.about-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+}

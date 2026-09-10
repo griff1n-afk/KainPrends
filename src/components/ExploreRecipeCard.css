@@ -1,0 +1,84 @@
+.explore-card {
+  background-color: #004643;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.explore-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+.explore-card:hover .fb-small {
+  opacity: 1;
+}
+
+.explore-card-photo-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background-color: var(--recipes-chip-bg);
+  overflow: hidden;
+}
+
+.explore-card-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 250ms ease;
+}
+
+.explore-card:hover .explore-card-photo-wrap img {
+  transform: scale(1.04);
+}
+
+.explore-card-photo-wrap .fb-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 32px;
+  height: 32px;
+  z-index: 1;
+}
+
+.explore-card-info {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.explore-card-badges {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.explore-card-badge {
+  align-self: flex-start;
+  background-color: var(--recipes-accent);
+  color: var(--recipes-headline);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.explore-card-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  color: #fffffe;
+  font-size: 1.1rem;
+}
+
+.explore-card-stats {
+  display: flex;
+  gap: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  color: #abd1c6;
+  font-size: 0.85rem;
+}

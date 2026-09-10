@@ -1,0 +1,110 @@
+
+.bs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.bs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bs-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #001e1d;
+}
+
+.bs-input {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #abd1c6;
+  border-radius: 8px;
+  background: #fffffe;
+  color: #001e1d;
+  font-size: 0.95rem;
+}
+
+.bs-input:focus {
+  outline: none;
+  border-color: #f9bc60;
+}
+
+.bs-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bs-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #001e1d;
+  border-radius: 999px;
+  background: #fffffe;
+  color: #001e1d;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.bs-badge.selected {
+  background: #f9bc60;
+  border-color: #f9bc60;
+}
+
+.bs-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.bs-row .bs-field {
+  flex: 1;
+}
+
+.bs-input-suffix {
+  display: flex;
+  align-items: center;
+  border: 1px solid #abd1c6;
+  border-radius: 8px;
+  background: #fffffe;
+  overflow: hidden;
+}
+
+.bs-input-suffix .bs-input {
+  border: none;
+  flex: 1;
+  min-width: 0;
+}
+
+.bs-suffix {
+  padding: 0 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #0f3433;
+  white-space: nowrap;
+}
+
+.bs-badge-star {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  color: #001e1d;
+  fill: #001e1d;
+  background: #fffffe;
+  border-radius: 50%;
+  padding: 1px;
+}
+
+.bs-badge.main {
+  border-color: #001e1d;
+  border-width: 2px;
+}

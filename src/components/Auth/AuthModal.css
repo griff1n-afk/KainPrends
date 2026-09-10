@@ -1,0 +1,76 @@
+.auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 30, 29, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+
+.auth-modal-wrapper {
+  position: relative;
+}
+
+.auth-modal-wrapper .flip-card-front,
+.auth-modal-wrapper .flip-card-back {
+  background: rgba(232, 228, 230, 0.97);
+}
+
+.auth-modal-close {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fffffe;
+  border: none;
+  color: #001e1d;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 30, 29, 0.2);
+  z-index: 10;
+  transition: transform 0.15s ease;
+}
+
+.auth-modal-close:hover {
+  transform: scale(1.1);
+}
+
+@keyframes authOverlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes authOverlayFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes authWrapperPopIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes authWrapperPopOut {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.95) translateY(8px); }
+}
+
+.auth-modal-overlay.opening { animation: authOverlayFadeIn 0.2s ease forwards; }
+.auth-modal-overlay.closing { animation: authOverlayFadeOut 0.25s ease forwards; }
+.auth-modal-wrapper.opening { animation: authWrapperPopIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.auth-modal-wrapper.closing { animation: authWrapperPopOut 0.2s ease forwards; }
+
+.auth-modal-close {
+  opacity: 1;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.auth-modal-close.fading {
+  opacity: 0;
+  pointer-events: none;
+}

@@ -1,0 +1,8 @@
+.login-background{
+    font-family: 'Inter', sans-serif;
+    min-height: 100dvh;
+    background-color: #004643;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

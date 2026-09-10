@@ -1,0 +1,11 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body, #root {
+  min-height: 100%;
+  overflow-x: hidden;
+  background-color: #faf7f2;
+}
+

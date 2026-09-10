@@ -1,0 +1,86 @@
+
+.ss-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ss-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.ss-step-number {
+  flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: #001e1d;
+  padding-top: 0.6rem;
+}
+
+.ss-textarea {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #abd1c6;
+  border-radius: 8px;
+  background: #fffffe;
+  color: #001e1d;
+  font-size: 0.9rem;
+  min-height: 60px;
+  resize: vertical;
+}
+
+.ss-textarea:focus {
+  outline: none;
+  border-color: #f9bc60;
+}
+
+.ss-add-btn {
+  align-self: flex-start;
+  background: none;
+  border: 1px dashed #001e1d;
+  color: #001e1d;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ss-reorder-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+.ss-move-btn {
+  background: none;
+  border: 1px solid #abd1c6;
+  border-radius: 4px;
+  color: #001e1d;
+  width: 22px;
+  height: 22px;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.ss-move-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.ss-move-btn:hover:not(:disabled) {
+  border-color: #f9bc60;
+  background: #fdf6ea;
+}

@@ -1,0 +1,39 @@
+
+.pu-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.pu-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px dashed #abd1c6;
+  border-radius: 8px;
+  background: #fffffe;
+  color: #0f3433;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  padding: 2rem 1rem;
+  height: 180px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  overflow: hidden;
+}
+
+.pu-dropzone:hover {
+  border-color: #f9bc60;
+  background: #fdf6ea;
+}
+
+.pu-hidden-input {
+  display: none;
+}
+
+.pu-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}

@@ -1,0 +1,33 @@
+
+.ns-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ns-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #001e1d;
+}
+
+.ns-textarea {
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #abd1c6;
+  border-radius: 8px;
+  background: #fffffe;
+  color: #001e1d;
+  font-size: 0.9rem;
+  min-height: 90px;
+  max-height: 90px;
+  overflow-y: auto;
+  resize: none;
+}
+
+.ns-textarea:focus {
+  outline: none;
+  border-color: #f9bc60;
+}
