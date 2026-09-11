@@ -222,124 +222,149 @@ export default function RecipeFormModal({ onClose, userId, onRecipeAdded, editRe
 
   const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
 
-const handleCloseAttempt = () => {
-  if (hasUnsavedData()) {
-    setShowDiscardConfirm(true);
-  } else {
-    onClose();
-  }
-};
-
-const isMobile = useIsMobile();
-const [wizardStep, setWizardStep] = useState(0);
-
-const WIZARD_STEPS = ['basics', 'photo', 'ingredients', 'steps', 'notes'] as const;
-
-const goNext = () => {
-  setWizardStep((prev) => Math.min(prev + 1, WIZARD_STEPS.length - 1));
-};
-
-const goBack = () => {
-  setWizardStep((prev) => Math.max(prev - 1, 0));
-};
-
-const [isLoadingRecipe, setIsLoadingRecipe] = useState(!!editRecipeId);
-
-useEffect(() => {
-  if (!editRecipeId) return;
-
-  const loadRecipeForEdit = async () => {
-    const { data, error } = await supabase
-      .from('recipes')
-      .select('*')
-      .eq('id', editRecipeId)
-      .single();
-
-    if (error || !data) {
-      console.error('Failed to load recipe for editing:', error);
-      setIsLoadingRecipe(false);
-      return;
+  const handleCloseAttempt = () => {
+    if (hasUnsavedData()) {
+      setShowDiscardConfirm(true);
+    } else {
+      onClose();
     }
-
-    setTitle(data.title ?? '');
-    setSelectedCategories(data.category ?? []);
-    setPrepTime(data.prep_time != null ? String(data.prep_time) : '');
-    setCookTime(data.cook_time != null ? String(data.cook_time) : '');
-    setServings(data.servings ?? '');
-    setNotes(data.notes ?? '');
-    setPhotoPreview(data.image_url ?? null);
-
-    setIngredients(
-      (data.ingredients ?? []).map((ingredientString: string) => ({
-        id: crypto.randomUUID(),
-        text: ingredientString,
-      }))
-    );
-
-    setSteps(
-      (data.steps ?? []).map((description: string) => ({
-        id: crypto.randomUUID(),
-        description,
-      }))
-    );
-    setIsLoadingRecipe(false);
   };
 
-  loadRecipeForEdit();
-}, [editRecipeId]);
+  const isMobile = useIsMobile();
+  const [wizardStep, setWizardStep] = useState(0);
 
-const renderMobileStep = () => {
-  switch (WIZARD_STEPS[wizardStep]) {
-    case 'basics':
-      return (
-        <BasicsSection
-          selectedCategories={selectedCategories}
-          onToggleCategory={toggleCategory}
-          title={title}
-          onTitleChange={setTitle}
-          prepTime={prepTime}
-          onPrepTimeChange={setPrepTime}
-          cookTime={cookTime}
-          onCookTimeChange={setCookTime}
-          servings={servings}
-          onServingsChange={setServings}
-        />
-      );
-    case 'photo':
-      return <PhotoUpload photoPreview={photoPreview} onPhotoSelect={handlePhotoSelect} />;
-    case 'ingredients':
-      return (
-        <IngredientsSection
-          ingredients={ingredients}
-          onAdd={addIngredient}
-          onRemove={removeIngredient}
-          onUpdate={updateIngredient}
-        />
-      );
-    case 'steps':
-      return (
-        <StepsSection
-          steps={steps}
-          onAdd={addStep}
-          onRemove={removeStep}
-          onUpdate={updateStep}
-          onMove={moveStep}
-        />
-      );
-    case 'notes':
-      return <NotesSection notes={notes} onNotesChange={setNotes} />;
-    default:
-      return null;
-  }
-};
+  const WIZARD_STEPS = ['basics', 'photo', 'ingredients', 'steps', 'notes'] as const;
 
-const WIZARD_STEP_LABELS: Record<typeof WIZARD_STEPS[number], string> = {
-  basics: 'Basic Details',
-  photo: 'Recipe Photo',
-  ingredients: 'Ingredients',
-  steps: 'Steps',
-  notes: 'Notes & Tips',
-};
+  const goNext = () => {
+    const error = validateCurrentStep();
+    if (error) {
+      setPublishError(error);
+      return;
+    }
+    setPublishError(null);
+    setWizardStep((prev) => Math.min(prev + 1, WIZARD_STEPS.length - 1));
+  };
+
+  const goBack = () => {
+    setWizardStep((prev) => Math.max(prev - 1, 0));
+  };
+
+  const [isLoadingRecipe, setIsLoadingRecipe] = useState(!!editRecipeId);
+
+  useEffect(() => {
+    if (!editRecipeId) return;
+
+    const loadRecipeForEdit = async () => {
+      const { data, error } = await supabase
+        .from('recipes')
+        .select('*')
+        .eq('id', editRecipeId)
+        .single();
+
+      if (error || !data) {
+        console.error('Failed to load recipe for editing:', error);
+        setIsLoadingRecipe(false);
+        return;
+      }
+
+      setTitle(data.title ?? '');
+      setSelectedCategories(data.category ?? []);
+      setPrepTime(data.prep_time != null ? String(data.prep_time) : '');
+      setCookTime(data.cook_time != null ? String(data.cook_time) : '');
+      setServings(data.servings ?? '');
+      setNotes(data.notes ?? '');
+      setPhotoPreview(data.image_url ?? null);
+
+      setIngredients(
+        (data.ingredients ?? []).map((ingredientString: string) => ({
+          id: crypto.randomUUID(),
+          text: ingredientString,
+        }))
+      );
+
+      setSteps(
+        (data.steps ?? []).map((description: string) => ({
+          id: crypto.randomUUID(),
+          description,
+        }))
+      );
+      setIsLoadingRecipe(false);
+    };
+
+    loadRecipeForEdit();
+  }, [editRecipeId]);
+
+  const renderMobileStep = () => {
+    switch (WIZARD_STEPS[wizardStep]) {
+      case 'basics':
+        return (
+          <BasicsSection
+            selectedCategories={selectedCategories}
+            onToggleCategory={toggleCategory}
+            title={title}
+            onTitleChange={setTitle}
+            prepTime={prepTime}
+            onPrepTimeChange={setPrepTime}
+            cookTime={cookTime}
+            onCookTimeChange={setCookTime}
+            servings={servings}
+            onServingsChange={setServings}
+          />
+        );
+      case 'photo':
+        return <PhotoUpload photoPreview={photoPreview} onPhotoSelect={handlePhotoSelect} />;
+      case 'ingredients':
+        return (
+          <IngredientsSection
+            ingredients={ingredients}
+            onAdd={addIngredient}
+            onRemove={removeIngredient}
+            onUpdate={updateIngredient}
+          />
+        );
+      case 'steps':
+        return (
+          <StepsSection
+            steps={steps}
+            onAdd={addStep}
+            onRemove={removeStep}
+            onUpdate={updateStep}
+            onMove={moveStep}
+          />
+        );
+      case 'notes':
+        return <NotesSection notes={notes} onNotesChange={setNotes} />;
+      default:
+        return null;
+    }
+  };
+
+  const WIZARD_STEP_LABELS: Record<typeof WIZARD_STEPS[number], string> = {
+    basics: 'Basic Details',
+    photo: 'Recipe Photo',
+    ingredients: 'Ingredients',
+    steps: 'Steps',
+    notes: 'Notes & Tips',
+  };
+
+  const validateCurrentStep = (): string | null => {
+    const currentStepKey = WIZARD_STEPS[wizardStep];
+
+    switch (currentStepKey) {
+      case 'basics':
+        if (title.trim() === '') return 'Please enter a recipe title.';
+        if (selectedCategories.length === 0) return 'Please select at least one category.';
+        return null;
+      case 'ingredients':
+        if (getValidIngredients().length === 0) return 'Please add at least one ingredient.';
+        return null;
+      case 'steps':
+        if (getValidSteps().length === 0) return 'Please add at least one step.';
+        return null;
+      default:
+        return null;
+    }
+  };
 
   return (
     <>

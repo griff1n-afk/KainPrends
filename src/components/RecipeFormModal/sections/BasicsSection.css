@@ -108,3 +108,8 @@
   border-color: #001e1d;
   border-width: 2px;
 }
+
+.required-asterisk {
+    color: #e16162;
+    margin-left: 2px;
+}

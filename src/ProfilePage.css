@@ -412,3 +412,31 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.pp-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.pp-page-button {
+    border: none;
+    background-color: transparent;
+    color: #001e1d;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.pp-page-button.active {
+    background-color: #f9bc60;
+}
+
+.pp-page-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

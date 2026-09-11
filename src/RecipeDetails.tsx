@@ -37,27 +37,6 @@ export default function RecipeDetails(){
         );
     };
 
-    useEffect( () => {
-        if (!id) return;
-        window.scrollTo(0, 0);
-
-        const fetchRecipes = async () => {
-            const { data, error } = await supabase
-            .from('recipes')
-            .select(`*,profiles (username)`)
-            .neq('id', id);
-            if (error) {
-                console.log('Error fetching recipes:', error.message);
-            } else if(data){
-                const shuffled = [...data].sort(() => Math.random() - 0.5);
-                setRelatedRecipes(shuffled.slice(0, 4));
-            }
-            setRecipesLoading(false);
-        };
-        fetchRecipes();
-    }, [id])
-
-
     useEffect(() => {
         if (!id) return;
         const fetchRecipe = async () => {
@@ -86,6 +65,44 @@ export default function RecipeDetails(){
         };
         fetchRecipe();
     }, [id]);
+
+    useEffect(() => {
+        if (!id || !recipe) return;
+        window.scrollTo(0, 0);
+
+        const fetchRecipes = async () => {
+            const { data, error } = await supabase
+                .from('recipes')
+                .select(`*, profiles (username)`)
+                .neq('id', id)
+                .overlaps('category', recipe.category);
+
+            if (error) {
+                console.log('Error fetching recipes:', error.message);
+                setRecipesLoading(false);
+                return;
+            }
+
+            if (data && data.length > 0) {
+                const shuffled = [...data].sort(() => Math.random() - 0.5);
+                setRelatedRecipes(shuffled.slice(0, 4));
+            } else {
+                const { data: fallbackData, error: fallbackError } = await supabase
+                    .from('recipes')
+                    .select(`*, profiles (username)`)
+                    .neq('id', id);
+
+                if (fallbackError) {
+                    console.log('Error fetching fallback recipes:', fallbackError.message);
+                } else if (fallbackData) {
+                    const shuffled = [...fallbackData].sort(() => Math.random() - 0.5);
+                    setRelatedRecipes(shuffled.slice(0, 4));
+                }
+            }
+            setRecipesLoading(false);
+        };
+        fetchRecipes();
+    }, [id, recipe]);
 
     if (loading){
         return (
@@ -211,7 +228,7 @@ export default function RecipeDetails(){
 
                     {recipesLoading ? (
                         <div className="related-recipe-grid">
-                            {Array.from({ length: 6 }).map((_, index) => (
+                            {Array.from({ length: 4 }).map((_, index) => (
                                 <div key={index} className="recipe-card-skeleton" />
                             ))}
                         </div>

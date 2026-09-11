@@ -6,6 +6,8 @@ import { useAuth } from './context/AuthContext';
 import { User as UserIcon, LogOut } from 'lucide-react';
 import { Menu, X, Bell } from 'lucide-react';
 import { useAuthModal } from './context/AuthModalContext'
+import { useNotifications } from './hooks/useNotifications';
+import { formatRelativeTime } from './utils/formatRelativeTime';
 
 
 export default function NavBar(){
@@ -21,6 +23,7 @@ export default function NavBar(){
     const [isNotifOpen, setIsNotifOpen] = useState(false);
     const notifRef = useRef<HTMLDivElement>(null);
     const [isNotifClosing, setIsNotifClosing] = useState(false);
+    const { notifications, markAllAsRead, unreadCount  } = useNotifications(currentUser?.id ?? null);
 
     const closeMobileMenu = useCallback(() => {
         setIsMenuClosing(true);
@@ -133,7 +136,9 @@ export default function NavBar(){
                     <div className="notif-wrapper" ref={notifRef}>
                         <button type="button" className="notif-bell-btn" onClick={toggleNotifMenu}>
                             <Bell size={20} />
-                            <span className="notif-badge">3</span>
+                            {unreadCount > 0 && (
+                                <span className="notif-badge">{unreadCount > 9 ? '9+' : unreadCount}</span>
+                            )}
                         </button>
 
                         {isNotifOpen && (
@@ -141,29 +146,31 @@ export default function NavBar(){
                                 <div className="notif-panel-arrow" />
                                 <div className="notif-panel-header">
                                     <span>Notifications</span>
-                                    <button type="button" className="notif-mark-all">Mark all read</button>
+                                    <button type="button" className="notif-mark-all" onClick={markAllAsRead}>Mark all read</button>
                                 </div>
 
                                 <div className="notif-list">
-                                    {/* placeholder items for now, real data later */}
-                                    <div className="notif-item unread">
-                                        <div className="notif-avatar-fallback">M</div>
-                                        <div className="notif-content">
-                                            <p><strong>Mabel</strong> favorited your recipe</p>
-                                            <p className="notif-recipe-title">Lumpiang Shanghai</p>
-                                            <span className="notif-time">5 min ago</span>
-                                        </div>
-                                        <span className="notif-dot" />
-                                    </div>
-
-                                    <div className="notif-item">
-                                        <div className="notif-avatar-fallback">S</div>
-                                        <div className="notif-content">
-                                            <p><strong>Shane1</strong> favorited your recipe</p>
-                                            <p className="notif-recipe-title">Chicken Adobo</p>
-                                            <span className="notif-time">2 hours ago</span>
-                                        </div>
-                                    </div>
+                                    {notifications.length === 0 ? (
+                                        <div className="notif-empty">No notifications yet</div>
+                                    ) : (
+                                        notifications.map((notif) => (
+                                            <div key={notif.id} className={`notif-item ${notif.is_read ? '' : 'unread'}`}>
+                                                {notif.actor.avatar_url ? (
+                                                    <img src={notif.actor.avatar_url} alt="" className="notif-avatar" />
+                                                ) : (
+                                                    <div className="notif-avatar-fallback">
+                                                        {notif.actor.username.charAt(0).toUpperCase()}
+                                                    </div>
+                                                )}
+                                                <div className="notif-content">
+                                                    <p><strong>{notif.actor.username}</strong> favorited your recipe</p>
+                                                    <p className="notif-recipe-title">{notif.recipe.title}</p>
+                                                    <span className="notif-time">{formatRelativeTime(notif.created_at)}</span>
+                                                </div>
+                                                {!notif.is_read && <span className="notif-dot" />}
+                                            </div>
+                                        ))
+                                    )}
                                 </div>
                             </div>
                         )}

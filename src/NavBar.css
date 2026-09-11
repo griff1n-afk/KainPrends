@@ -480,6 +480,14 @@
   margin-top: 0.4rem;
 }
 
+.notif-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .notif-recipe-title {
   font-weight: 600;
   color: #001e1d;

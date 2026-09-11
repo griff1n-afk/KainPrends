@@ -17,7 +17,7 @@ const SEARCH_STOPWORDS = ['and', 'with', 'the', 'a', 'an', 'or', 'of'];
 
 export default function RecipesPage(){
 
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const { currentUser } = useAuth();
     const { favoritedIds, toggleFavorite } = useFavorites(currentUser?.id ?? null);
@@ -192,10 +192,32 @@ export default function RecipesPage(){
 
     useEffect(() => {
         const categoryFromUrl = searchParams.get('category');
+        const searchFromUrl = searchParams.get('search');
+        const timeFromUrl = searchParams.get('time');
+
         if (categoryFromUrl) {
-            setSelectedCategories([categoryFromUrl]);
+            setSelectedCategories(categoryFromUrl.split(','));
         }
-    }, [searchParams]);
+        if (searchFromUrl) {
+            setSearchText(searchFromUrl);
+        }
+        if (timeFromUrl === 'under30' || timeFromUrl === 'under60') {
+            setTimeFilter(timeFromUrl);
+        }
+    }, []);
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            const params: Record<string, string> = {};
+            if (searchText.trim()) params.search = searchText.trim();
+            if (selectedCategories.length > 0) params.category = selectedCategories.join(',');
+            if (timeFilter) params.time = timeFilter;
+
+            setSearchParams(params, { replace: true });
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
+    }, [searchText, selectedCategories, timeFilter]);
 
     return (
         <>

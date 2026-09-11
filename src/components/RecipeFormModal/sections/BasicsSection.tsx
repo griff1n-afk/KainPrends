@@ -30,7 +30,9 @@ export default function BasicsSection({ selectedCategories,
   return (
     <div className="bs-container">
       <div className="bs-field">
-        <label className="bs-label">Recipe Title</label>
+        <label className="bs-label">
+          Recipe Title<span className="required-asterisk">*</span>
+        </label>
         <input
           type="text"
           className="bs-input"
@@ -41,7 +43,9 @@ export default function BasicsSection({ selectedCategories,
       </div>
 
       <div className="bs-field">
-        <label className="bs-label">Category</label>
+        <label className="bs-label">
+          Category<span className="required-asterisk">*</span>
+        </label>
         <div className="bs-badge-group">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;

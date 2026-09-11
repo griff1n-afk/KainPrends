@@ -67,6 +67,32 @@ export default function ProfilePage(){
 
     const { favoritedIds, toggleFavorite } = useFavorites(currentUser?.id ?? null);
 
+    const [recipesPage, setRecipesPage] = useState(1);
+    const [favoritesPage, setFavoritesPage] = useState(1);
+    const RECIPES_PER_PAGE = 9;
+
+    const gridItems = activeTab === "recipes" ? recipes : favorites;
+    const activePage = activeTab === "recipes" ? recipesPage : favoritesPage;
+    const setActivePage = activeTab === "recipes" ? setRecipesPage : setFavoritesPage;
+
+    const totalPages = Math.ceil(gridItems.length / RECIPES_PER_PAGE);
+
+    const paginatedItems = gridItems.slice(
+        (activePage - 1) * RECIPES_PER_PAGE,
+        activePage * RECIPES_PER_PAGE
+    );
+
+    const handlePageChange = (page: number) => {
+        setActivePage(page);
+        document.querySelector('.profile-page-wrapper')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    useEffect(() => {
+        setRecipesPage(1);
+        setFavoritesPage(1);
+    }, [activeTab]);
+
+
     useEffect( () => {
         if (!username && !authChecked) return;
         async function fetchProfile() {
@@ -122,7 +148,7 @@ export default function ProfilePage(){
         setFavoriteCount(fCount ?? 0);
 
         setLoadingGrid(false);
-        };
+    };
 
     useEffect( () => {
         if (!profile?.id) return;
@@ -169,8 +195,6 @@ export default function ProfilePage(){
         );
     }
 
-    const gridItems = activeTab === "recipes" ? recipes : favorites;
-
     const handleDeleteRecipe = async () => {
         if (!deletingRecipeId) return;
 
@@ -194,141 +218,165 @@ export default function ProfilePage(){
 
     return(
         <>
+            <NavBar/>
             <div className="profile-page-wrapper">
-
-                <NavBar/>
-                    <div className="profile-page">
-                        <div className="profile-container">
-                            {loadingProfile ? (
-                                <aside className="profile-sidebar">
-                                    <div className="skeleton-avatar" />
-                                    <div className="skeleton-line skeleton-username" />
-                                    <div className="skeleton-line skeleton-bio" />
-                                    <div className="skeleton-line skeleton-bio-short" />
-                                </aside>
-                            ) : (
-                                <aside className="profile-sidebar">
-                                    <img className="profile-avatar"
-                                        src={profile.avatar_url ?? ""}
-                                        alt=''
-                                    />
-                                    <h1 className="profile-username">{profile.username}</h1>
-                                    {profile.bio && <p className="profile-bio">{profile.bio}</p>}
-                                    <div className="profile-stats">
-                                        <div className="profile-stat">
-                                            <span className="stat-number">{recipeCount}</span>
-                                            <span className="stat-label">Recipes</span>
-                                        </div>
-                                        <div className="profile-stat">
-                                            <span className="stat-number">{favoriteCount}</span>
-                                            <span className="stat-label">Favorites</span>
-                                        </div>
+                <div className="profile-page">
+                    <div className="profile-container">
+                        {loadingProfile ? (
+                            <aside className="profile-sidebar">
+                                <div className="skeleton-avatar" />
+                                <div className="skeleton-line skeleton-username" />
+                                <div className="skeleton-line skeleton-bio" />
+                                <div className="skeleton-line skeleton-bio-short" />
+                            </aside>
+                        ) : (
+                            <aside className="profile-sidebar">
+                                <img className="profile-avatar"
+                                    src={profile.avatar_url ?? ""}
+                                    alt=''
+                                />
+                                <h1 className="profile-username">{profile.username}</h1>
+                                {profile.bio && <p className="profile-bio">{profile.bio}</p>}
+                                <div className="profile-stats">
+                                    <div className="profile-stat">
+                                        <span className="stat-number">{recipeCount}</span>
+                                        <span className="stat-label">Recipes</span>
                                     </div>
-                                    {isOwnProfile && (
-                                        <button className="edit-profile-btn" onClick={() => setIsEditModalOpen(true)}>Edit Profile</button>
-                                    )}
-                                </aside>
-                            )}
-                            <section className="profile-content">
-                                <div className="profile-content-header">
-                                <div className="profile-tabs">
-                                    <button
-                                        className={`profile-tab ${activeTab === "recipes" ? "active" : ""}`}
-                                        onClick={() => setActiveTab("recipes")}
-                                    >
-                                        {isOwnProfile ? "My Recipes" : "Recipes"}
-                                    </button>
-                                    <button
-                                        className={`profile-tab ${activeTab === "favorites" ? "active" : ""}`}
-                                        onClick={() => setActiveTab("favorites")}
-                                    >
-                                        Favorites
-                                    </button>
+                                    <div className="profile-stat">
+                                        <span className="stat-number">{favoriteCount}</span>
+                                        <span className="stat-label">Favorites</span>
+                                    </div>
                                 </div>
                                 {isOwnProfile && (
-                                    <button className="add-recipe-btn" onClick={() => setIsAddRecipeOpen(true)}>+ Add Recipe</button>
+                                    <button className="edit-profile-btn" onClick={() => setIsEditModalOpen(true)}>Edit Profile</button>
                                 )}
-                                </div>
-                                <div className="profile-recipe-grid">
-                                {loadingGrid ? (
-                                    Array.from({ length: 4 }).map((_, index) => (
-                                        <div key={index} className="p-card" />
-                                    ))
-                                ) : gridItems.length === 0 ? (
-                                    <div className="profile-empty-state">
-                                        {activeTab === "recipes" ? (
+                            </aside>
+                        )}
+                        <section className="profile-content">
+                            <div className="profile-content-header">
+                            <div className="profile-tabs">
+                                <button
+                                    className={`profile-tab ${activeTab === "recipes" ? "active" : ""}`}
+                                    onClick={() => setActiveTab("recipes")}
+                                >
+                                    {isOwnProfile ? "My Recipes" : "Recipes"}
+                                </button>
+                                <button
+                                    className={`profile-tab ${activeTab === "favorites" ? "active" : ""}`}
+                                    onClick={() => setActiveTab("favorites")}
+                                >
+                                    Favorites
+                                </button>
+                            </div>
+                            {isOwnProfile && (
+                                <button className="add-recipe-btn" onClick={() => setIsAddRecipeOpen(true)}>+ Add Recipe</button>
+                            )}
+                            </div>
+                            <div className="profile-recipe-grid">
+                            {loadingGrid ? (
+                                Array.from({ length: 4 }).map((_, index) => (
+                                    <div key={index} className="p-card" />
+                                ))
+                            ) : gridItems.length === 0 ? (
+                                <div className="profile-empty-state">
+                                    {activeTab === "recipes" ? (
+                                        isOwnProfile ?
+                                        "No recipes yet — share your first one." :
+                                        `${profile?.username ?? "This user"} hasn't shared any recipes yet.`
+                                        ) : (
                                             isOwnProfile ?
-                                            "No recipes yet — share your first one." :
-                                            `${profile?.username ?? "This user"} hasn't shared any recipes yet.`
-                                            ) : (
-                                                isOwnProfile ?
-                                                "No favorites yet — go find something to save." :
-                                                `${profile?.username ?? "This user"} hasn't favorited any recipes yet.`
-                                            )
-                                        }
-                                    </div>
-                                ) : (
-                                    <>
-                                        {gridItems.map((recipe) => (
-                                            <Link to={`/recipe/${recipe.id}`} className="p-card" key={recipe.id}>
-                                                <div className="p-card-media-wrapper">
-                                                    <img 
-                                                        src={getRecipeImage(recipe) ?? "https://placehold.co"} 
-                                                        alt={recipe.title} 
-                                                        className="p-card-image" 
-                                                    />
-                                                    <span className="p-card-tag">
-                                                        {recipe.category?.[0]}
-                                                    </span>
-                                                    <FavoriteButton
-                                                        recipeId={recipe.id}
-                                                        userId={currentUser?.id ?? null}
-                                                        isFavorited={favoritedIds.has(recipe.id)}
-                                                        onToggle={toggleFavorite}
-                                                    />
-                                                </div>
-                                                <div className="p-card-details">
-                                                    <div className="p-card-header-row">
-                                                        <h3 className="p-card-headline">{recipe.title}</h3>
-                                                        
-                                                        {isOwnProfile && activeTab === "recipes" && (
-                                                            <div className="p-card-dashboard-actions">
-                                                                <button
-                                                                type="button"
-                                                                className="p-card-icon-btn p-edit-btn"
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    setEditingRecipeId(recipe.id);
-                                                                }}
-                                                                >
-                                                                    <Pencil size={14} />
-                                                                </button>
-                                                                <button
-                                                                type="button"
-                                                                className="p-card-icon-btn p-delete-btn"
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    setDeletingRecipeId(recipe.id);
-                                                                }}
-                                                                >
-                                                                    <Trash2 size={14} />
-                                                                </button>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </>
-                                )}
+                                            "No favorites yet — go find something to save." :
+                                            `${profile?.username ?? "This user"} hasn't favorited any recipes yet.`
+                                        )
+                                    }
                                 </div>
-                            </section>
-                        </div>
+                            ) : (
+                                <>
+                                    {paginatedItems.map((recipe) => (
+                                        <Link to={`/recipe/${recipe.id}`} className="p-card" key={recipe.id}>
+                                            <div className="p-card-media-wrapper">
+                                                <img 
+                                                    src={getRecipeImage(recipe) ?? "https://placehold.co"} 
+                                                    alt={recipe.title} 
+                                                    className="p-card-image" 
+                                                />
+                                                <span className="p-card-tag">
+                                                    {recipe.category?.[0]}
+                                                </span>
+                                                <FavoriteButton
+                                                    recipeId={recipe.id}
+                                                    userId={currentUser?.id ?? null}
+                                                    isFavorited={favoritedIds.has(recipe.id)}
+                                                    onToggle={toggleFavorite}
+                                                />
+                                            </div>
+                                            <div className="p-card-details">
+                                                <div className="p-card-header-row">
+                                                    <h3 className="p-card-headline">{recipe.title}</h3>
+                                                    
+                                                    {isOwnProfile && activeTab === "recipes" && (
+                                                        <div className="p-card-dashboard-actions">
+                                                            <button
+                                                            type="button"
+                                                            className="p-card-icon-btn p-edit-btn"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setEditingRecipeId(recipe.id);
+                                                            }}
+                                                            >
+                                                                <Pencil size={14} />
+                                                            </button>
+                                                            <button
+                                                            type="button"
+                                                            className="p-card-icon-btn p-delete-btn"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setDeletingRecipeId(recipe.id);
+                                                            }}
+                                                            >
+                                                                <Trash2 size={14} />
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </>
+                            )}
+                            </div>
+                            <div className="pp-pagination">
+                                <button
+                                    className="pp-page-button"
+                                    onClick={() => handlePageChange(Math.max(activePage - 1, 1))}
+                                    disabled={activePage === 1}
+                                >
+                                    ←
+                                </button>
+
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                    <button
+                                        key={page}
+                                        className={`pp-page-button ${activePage === page ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                ))}
+
+                                <button
+                                    className="pp-page-button"
+                                    onClick={() => handlePageChange(Math.min(activePage + 1, totalPages))}
+                                    disabled={activePage === totalPages}
+                                >
+                                    →
+                                </button>
+                            </div>
+                        </section>
                     </div>
-                
-                <Footer/>
-                
+                </div>
             </div>
+            <Footer/>
             <EditProfileModal 
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}

@@ -1,0 +1,507 @@
+.about-hero {
+    position: relative;
+    background-color: var(--recipes-bg-light);
+    text-align: center;
+    padding: 2.5rem 2rem;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        url('./assets/about-leaves-topleft.png'),
+        url('./assets/about-leaves-bottomright.png');
+    background-repeat: no-repeat, no-repeat;
+    background-position: top left, bottom right;
+    background-size: 30vw auto, 30vw auto;
+    opacity: 0.7;
+    z-index: 0;
+}
+
+.about-hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+.about-hero-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #D98216;
+    margin-bottom: 24px;
+}
+
+.about-hero-statement {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #001e1d;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.2;
+}
+
+.about-hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    color: #0f3433;
+    font-size: 1.1rem;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.about-story {
+    background-color: var(--recipes-chip-bg);
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    padding: 3rem 2rem;
+}
+
+.about-story-image-wrap {
+    width: 520px;
+    height: 400px;
+    background-color: var(--recipes-bg-light);
+    border-radius: 16px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.about-story-content {
+    max-width: 420px;
+    text-align: left;
+}
+
+.about-section-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #D98216;
+    margin-bottom: 0.75rem;
+}
+
+.about-story-statement {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #001e1d;
+    line-height: 1.3;
+    margin-bottom: 1.25rem;
+}
+
+.about-story-text {
+    font-family: 'Inter', sans-serif;
+    color: #0f3433;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+}
+
+.about-story-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-label-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.about-label-line {
+    width: 32px;
+    height: 2px;
+    background-color: #D98216;
+    flex-shrink: 0;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .about-story {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2.5rem 1.5rem;
+        min-height: auto;
+    }
+
+    .about-story-image-wrap {
+        width: 100%;
+        height: 260px;
+    }
+
+    .about-story-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .about-label-row {
+        justify-content: center;
+    }
+
+    .about-label-line {
+        display: none;
+    }
+}
+
+.about-name {
+    background-color: #004643;
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.about-name-tagline {
+    font-family: 'Inter', sans-serif;
+    color: #abd1c6;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    max-width: 650px;
+    margin: 28px auto 0;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.about-name-equation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.about-name-word h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    color: #fffffe;
+    line-height: 1;
+}
+
+.about-name-meaning {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    color: #abd1c6;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+.about-name-symbol {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #f9bc60;
+}
+
+.about-name-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-name-result h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #fffffe;
+}
+
+.about-label-row-center {
+    justify-content: center;
+}
+
+.about-section-label-light {
+    color: #f9bc60;
+}
+
+@media (max-width: 640px) {
+    .about-name-word h3 {
+        font-size: 2rem;
+    }
+
+    .about-name-equation {
+        gap: 1rem;
+    }
+
+    .about-name-symbol {
+        font-size: 1.5rem;
+    }
+
+    .about-name-result h3 {
+        font-size: 1.75rem;
+    }
+}
+
+.about-features {
+    background-color: var(--recipes-bg-light);
+    padding: 4rem 2rem;
+}
+
+.about-features-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.about-features-heading {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #001e1d;
+    margin: 0 auto 3.25rem;
+    max-width: 500px;
+    text-align: center;
+}
+
+.about-features-list {
+    display: flex;
+    gap: 3rem;
+    text-align: center;
+}
+
+.about-feature-icon {
+    color: #D98216;
+    margin-bottom: 1rem;
+}
+
+.about-feature {
+    flex: 1;
+}
+
+.about-feature-number {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #D98216;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.about-feature-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: #001e1d;
+    margin-bottom: 0.9rem;
+}
+
+.about-feature-line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--recipes-chip-bg);
+    margin-bottom: 1rem;
+}
+
+.about-feature-text {
+    font-family: 'Inter', sans-serif;
+    color: #0f3433;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .about-features-list {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+}
+
+.about-creator {
+    background-color: var(--recipes-chip-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    padding: 4rem 2rem;
+}
+
+.about-creator-text-block {
+    max-width: 480px;
+    text-align: left;
+}
+
+.about-creator-greeting {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: #001e1d;
+    margin-bottom: 1.25rem;
+}
+
+.about-creator-text {
+    font-family: 'Inter', sans-serif;
+    color: #0f3433;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.about-creator-stack-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #001e1d;
+    margin: 1.5rem 0 0.75rem;
+}
+
+.about-creator-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.about-stack-pill {
+    background-color: var(--recipes-bg-light);
+    color: #001e1d;
+    border: 1px solid #001e1d;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+}
+
+.about-creator-links {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.about-creator-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+}
+
+.about-creator-link-primary {
+    background-color: #001e1d;
+    color: #fffffe;
+}
+
+.about-creator-link-secondary {
+    background-color: transparent;
+    color: #001e1d;
+    border: 1px solid #001e1d;
+}
+
+.about-creator-photo-wrap {
+    width: 320px;
+    height: 320px;
+    background-color: var(--recipes-bg-light);
+    border-radius: 16px;
+    flex-shrink: 0;
+}
+
+.about-creator-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+
+    .about-creator {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+    }
+
+    .about-creator-text-block {
+        display: contents;
+    }
+
+    .about-creator-header {
+        order: 1;
+    }
+
+    .about-creator-photo-wrap {
+        order: 2;
+        width: 100%;
+        height: 260px;
+    }
+
+    .about-creator-body {
+        order: 3;
+    }
+
+    .about-creator-footer {
+        order: 4;
+    }
+
+    .about-creator-body,
+    .about-creator-footer {
+        text-align: center;
+    }
+
+    .about-label-row,
+    .about-creator-stack,
+    .about-creator-links {
+        justify-content: center;
+    }
+
+    .about-creator-text:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.about-cta {
+    background-color: var(--recipes-bg-light);
+    text-align: center;
+    padding: 4.5rem 2rem;
+}
+
+.about-cta-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: #D98216;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.about-cta-subtitle {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: #001e1d;
+    font-size: 2.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.about-cta-text {
+    font-family: 'Inter', sans-serif;
+    color: #0f3433;
+    font-size: 1rem;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+}
+
+.about-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f9bc60;
+    color: #001e1d;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 0.85rem 2.25rem;
+    border-radius: 999px;
+    text-decoration: none;
+}

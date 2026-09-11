@@ -37,21 +37,26 @@ export function useFavorites(userId: string | null) {
 
     if (newState) {
       await supabase.from('favorites').insert({ user_id: userId, recipe_id: recipeId });
-      
-      const { data: recipeData } = await supabase
-      .from('recipes')
-      .select('user_id')
-      .eq('id', recipeId)
-      .single();
 
-    if (recipeData && recipeData.user_id !== userId) {
-      await supabase.from('notifications').insert({
-        recipient_id: recipeData.user_id,
-        actor_id: userId,
-        recipe_id: recipeId,
-        type: 'favorite',
-      });
-    }
+      const { data: recipeData } = await supabase
+        .from('recipes')
+        .select('user_id')
+        .eq('id', recipeId)
+        .single();
+
+      if (recipeData && recipeData.user_id !== userId) {
+        await supabase.from('notifications').upsert(
+          {
+            recipient_id: recipeData.user_id,
+            actor_id: userId,
+            recipe_id: recipeId,
+            type: 'favorite',
+            is_read: false,
+            created_at: new Date().toISOString(),
+          },
+          { onConflict: 'recipient_id,actor_id,recipe_id,type' }
+        );
+      }
     } else {
       await supabase.from('favorites').delete().eq('user_id', userId).eq('recipe_id', recipeId);
     }

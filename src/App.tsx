@@ -8,6 +8,7 @@ import ResetPassword from "./ResetPassword"
 import RecipeDetails from "./RecipeDetails";
 import ProfilePage from "./ProfilePage";
 import RecipesPage from "./RecipesPage";
+import AboutPage from "./AboutPage"
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/recipe/:id" element={<RecipeDetails/>} />
             <Route path="/profile/:username" element={<ProfilePage/>} />
             <Route path="/recipes" element={<RecipesPage/>} />
+            <Route path="/about" element={<AboutPage/>} />
           </Routes>
           <AuthModal />
         </BrowserRouter>
