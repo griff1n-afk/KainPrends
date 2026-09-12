@@ -289,7 +289,7 @@
 }
 
 .recipe-detail-loading {
-    min-height: 100vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -412,17 +412,18 @@
 }
 
 .recipe-not-found-wrapper {
-    min-height: 100vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .no-recipe {
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     background-color: #abd1c6;
     text-align: center;
     padding: 100px 24px;

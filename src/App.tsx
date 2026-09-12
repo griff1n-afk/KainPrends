@@ -22,22 +22,24 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <NavBar />
-          <Routes>
-            <Route path="/" element={<HomePage/>} />
-            <Route path="/auth" element={<Auth/>} />
-            <Route
-              path="/reset-password"
-              element={
-                <RecoveryRoute>
-                  <ResetPasswordPage />
-                </RecoveryRoute>
-              }
-            />
-            <Route path="/recipe/:id" element={<RecipeDetails/>} />
-            <Route path="/profile/:username" element={<ProfilePage/>} />
-            <Route path="/recipes" element={<RecipesPage/>} />
-            <Route path="/about" element={<AboutPage/>} />
-          </Routes>
+          <main className="app-main">
+            <Routes>
+              <Route path="/" element={<HomePage/>} />
+              <Route path="/auth" element={<Auth/>} />
+              <Route
+                path="/reset-password"
+                element={
+                  <RecoveryRoute>
+                    <ResetPasswordPage />
+                  </RecoveryRoute>
+                }
+              />
+              <Route path="/recipe/:id" element={<RecipeDetails/>} />
+              <Route path="/profile/:username" element={<ProfilePage/>} />
+              <Route path="/recipes" element={<RecipesPage/>} />
+              <Route path="/about" element={<AboutPage/>} />
+            </Routes>
+          </main>
           <AuthModal />
           <Footer />
         </BrowserRouter>
