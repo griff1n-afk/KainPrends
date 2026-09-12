@@ -7,8 +7,8 @@
 .recipe-hero {
     position: relative;
     max-width: 900px;
-    margin: 16px auto 0;
-    padding: 0 24px;
+    margin: 0 auto;
+    padding: 16px 24px 0;
 }
 
 .recipe-hero-image {

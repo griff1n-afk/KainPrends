@@ -1,5 +1,3 @@
-import NavBar from './NavBar';
-import Footer from './Footer';
 import './RecipeDetails.css'
 import { Link } from 'react-router-dom'; 
 import { useState, useEffect } from 'react';
@@ -29,6 +27,8 @@ export default function RecipeDetails(){
     
     const { currentUser } = useAuth();
     const { favoritedIds, toggleFavorite } = useFavorites(currentUser?.id ?? null);
+
+    const [justCopied, setJustCopied] = useState(false);
 
     const handleFavoriteToggle = (recipeId: string, newState: boolean) => {
         toggleFavorite(recipeId, newState);
@@ -104,16 +104,45 @@ export default function RecipeDetails(){
         fetchRecipes();
     }, [id, recipe]);
 
+        useEffect(() => {
+        if (!justCopied) return;
+        const timer = setTimeout(() => setJustCopied(false), 2000);
+        return () => clearTimeout(timer);
+    }, [justCopied]);
+
+    const handleShare = async () => {
+        const shareData = {
+            title: recipe.title,
+            text: `Check out this recipe for ${recipe.title} on KainPrends!`,
+            url: window.location.href,
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                if ((err as Error).name !== 'AbortError') {
+                    console.error('Share failed:', err);
+                }
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                setJustCopied(true);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+        }
+    };
+
     if (loading){
         return (
             <div className="recipe-detail-loading">
-                <NavBar />
-                    <div className='loading-recipe'>
-                        <div className="loading-spinner-wrapper">
-                            <span className="spinner-large" />
-                        </div>
+                <div className='loading-recipe'>
+                    <div className="loading-spinner-wrapper">
+                        <span className="spinner-large" />
                     </div>
-                <Footer/>
+                </div>
             </div>
         );
     } 
@@ -122,13 +151,11 @@ export default function RecipeDetails(){
         return (
             <>
                 <div className="recipe-not-found-wrapper">
-                    <NavBar />
-                        <div className='no-recipe'>
-                            <h2>Recipe not found</h2>
-                            <p>The recipe you are looking for might have been deleted or moved.</p>
-                            <Link to="/recipes" className="back-home-btn">Browse all recipes</Link>
-                        </div>
-                    <Footer />
+                    <div className='no-recipe'>
+                        <h2>Recipe not found</h2>
+                        <p>The recipe you are looking for might have been deleted or moved.</p>
+                        <Link to="/recipes" className="back-home-btn">Browse all recipes</Link>
+                    </div>
                 </div>
                 
             </>
@@ -138,7 +165,6 @@ export default function RecipeDetails(){
     return(
         <>
             <div className="recipe-detail-page">
-                <NavBar/>
                 <div className="recipe-hero">
                     <img src={getRecipeImage(recipe) ?? "https://placehold.co"}  alt={recipe.title} className="recipe-hero-image" />
 
@@ -161,7 +187,7 @@ export default function RecipeDetails(){
                                     onToggle={handleFavoriteToggle}
                                     size="large"
                                 />
-                                <button type="button" className="recipe-action-btn">
+                                <button type="button" className="recipe-action-btn" onClick={handleShare}>
                                     <Share2 size={18} />
                                     <span>Share</span>
                                 </button>
@@ -253,8 +279,6 @@ export default function RecipeDetails(){
                     )} 
                 </div>
             </div>
-
-            <Footer/>
         </>
     );
 }

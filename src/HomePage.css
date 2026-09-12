@@ -399,7 +399,7 @@
     flex-shrink: 0;
 }
 
-.about-cta button {
+.homepage-about-cta button {
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 600;
@@ -413,7 +413,7 @@
     transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.about-cta button:hover {
+.homepage-about-cta button:hover {
     background-color: #ffc873;
     transform: translateY(-2px);
 }

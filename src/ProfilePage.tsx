@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useLocation, Link} from "react-router-dom";
 import { supabase } from './supabaseClient.ts';
 import { useAuth } from './context/AuthContext';
-import NavBar from "./NavBar";
-import Footer from "./Footer";
 import './ProfilePage.css'
 import './EditProfileModal.css'
 import { Pencil, Trash2 } from 'lucide-react';
@@ -176,11 +174,9 @@ export default function ProfilePage(){
     if (loadingProfile) {
         return (
         <>
-            <NavBar />
             <div className="profile-loading">
                 <div className="spinner" />
             </div>
-            <Footer/>
         </>
         );
     }
@@ -188,9 +184,7 @@ export default function ProfilePage(){
     if (!profile) {
         return (
         <>
-            <NavBar />
             <div className="profile-not-found">Couldn't find that profile.</div>
-            <Footer/>
         </>
         );
     }
@@ -218,7 +212,6 @@ export default function ProfilePage(){
 
     return(
         <>
-            <NavBar/>
             <div className="profile-page-wrapper">
                 <div className="profile-page">
                     <div className="profile-container">
@@ -376,7 +369,6 @@ export default function ProfilePage(){
                     </div>
                 </div>
             </div>
-            <Footer/>
             <EditProfileModal 
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}

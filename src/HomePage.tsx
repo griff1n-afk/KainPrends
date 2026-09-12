@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 import './HomePage.css'
 import { useAuth } from './context/AuthContext';
 import { useAuthModal } from './context/AuthModalContext'
-import NavBar from './NavBar';
 import { Heart } from 'lucide-react';
 import { Coffee, Sandwich, UtensilsCrossed, IceCreamCone, Cookie, Martini, Leaf, Compass, ChefHat } from 'lucide-react';
-import Footer from './Footer';
 import { getRecipeImage } from './utils/getRecipeImage';
 import FavoriteButton from './components/FavoriteButton'
 import { useFavorites } from './hooks/useFavorites'; 
@@ -73,7 +71,6 @@ export default function HomePage(){
 
     return(
         <>
-            <NavBar/>
             <section className='hero-section'>
                 <div className='hero-carousel'>
                     {heroImages.map( (image,index) => (
@@ -187,7 +184,7 @@ export default function HomePage(){
                         </div>
                     </div>
 
-                    <div className="about-cta">
+                    <div className="homepage-about-cta">
                         {currentUser ? (
                             <button type="button" onClick={() => navigate('/recipe/new')}>
                                 Share Your Recipe
@@ -204,8 +201,6 @@ export default function HomePage(){
                     <img src={aboutimage} alt="Home cooking" />
                 </div>
             </div>
-
-            <Footer/>
         </>
     );
 }

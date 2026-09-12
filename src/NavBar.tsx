@@ -12,7 +12,8 @@ import { formatRelativeTime } from './utils/formatRelativeTime';
 
 export default function NavBar(){
 
-    const { currentUser } = useAuth();
+    const { currentUser, isPasswordRecovery  } = useAuth();
+    const showLoggedInUI = currentUser && !isPasswordRecovery;
     const [loading, setLoading] = useState(true);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -132,7 +133,7 @@ export default function NavBar(){
             </ul>
 
             <div className="navbar-right-cluster">
-                {currentUser && (
+                {currentUser && !isPasswordRecovery && (
                     <div className="notif-wrapper" ref={notifRef}>
                         <button type="button" className="notif-bell-btn" onClick={toggleNotifMenu}>
                             <Bell size={20} />
@@ -180,7 +181,7 @@ export default function NavBar(){
                 <div className='navbar-actions'>
                     {loading ? (
                         <div className="navbar-actions-skeleton" />
-                    ) : currentUser ? (
+                    ) : currentUser && !isPasswordRecovery  ? (
                         <div className='profile-menu-wrapper'>
                             <button type='button' className='profile-avatar-btn' onClick={toggleProfileMenu}>
                                 {profileData?.avatar_url ? (
@@ -242,7 +243,7 @@ export default function NavBar(){
                     <div className="mobile-menu-divider" />
 
                     <div className="mobile-menu-actions">
-                        {loading ? null : currentUser ? (
+                        {loading ? null : currentUser && !isPasswordRecovery  ? (
                             <>
                                 <Link to={`/profile/${profileData?.username}`} className="mobile-menu-item" onClick={closeMobileMenu}>
                                     Profile

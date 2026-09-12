@@ -400,6 +400,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 32px;
   z-index: 10;
   animation: overlayFadeIn 0.25s ease;
 }

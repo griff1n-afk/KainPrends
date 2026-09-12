@@ -2,8 +2,6 @@ import './RecipesPage.css'
 import { Link, useSearchParams  } from 'react-router-dom';
 import { useEffect, useState, useRef  } from 'react';
 import { supabase } from './supabaseClient';
-import NavBar from './NavBar';
-import Footer from './Footer';
 import { Clock, Users, Carrot, ArrowRight, Search, ChevronDown  } from 'lucide-react';
 import type { Recipe } from './types';
 import ExploreRecipeCard from './components/ExploreRecipeCard';
@@ -221,7 +219,6 @@ export default function RecipesPage(){
 
     return (
         <>
-            <NavBar />
             <div className="recipes-page">
 
                 <section className="discover-section">
@@ -490,7 +487,6 @@ export default function RecipesPage(){
                 )}
 
             </div>
-            <Footer />
         </>
     );
 }
