@@ -66,7 +66,7 @@ export default function AuthCard({ isFlipped, setIsFlipped, onAuthSuccess }: Aut
     const handlePasswordReset = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-            redirectTo: 'http://localhost:5173/reset-password',
+            redirectTo: `${import.meta.env.VITE_SITE_URL}/reset-password`,
         });
         if (error){
             setResetError(error.message);
@@ -219,7 +219,7 @@ export default function AuthCard({ isFlipped, setIsFlipped, onAuthSuccess }: Aut
         const { error } = await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: 'http://localhost:5173/',
+                redirectTo: `${import.meta.env.VITE_SITE_URL}`,
             },
         });
         if (error) {
