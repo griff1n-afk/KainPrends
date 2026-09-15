@@ -93,8 +93,27 @@ export default function RecipeDetails(){
             }
 
             if (data && data.length > 0) {
-                const shuffled = [...data].sort(() => Math.random() - 0.5);
-                setRelatedRecipes(shuffled.slice(0, 4));
+                const shuffledRelated = [...data].sort(() => Math.random() - 0.5);
+                let combined = shuffledRelated.slice(0, 4);
+
+                if (combined.length < 4) {
+                    const { data: fallbackData, error: fallbackError } = await supabase
+                        .from('recipes')
+                        .select(`*, profiles (username)`)
+                        .neq('id', id);
+
+                    if (fallbackError) {
+                        console.log('Error fetching fallback recipes:', fallbackError.message);
+                    } else if (fallbackData) {
+                        const usedIds = new Set(combined.map((r) => r.id));
+                        const remainingPool = fallbackData.filter((r) => !usedIds.has(r.id));
+                        const shuffledFallback = [...remainingPool].sort(() => Math.random() - 0.5);
+                        const needed = 4 - combined.length;
+                        combined = [...combined, ...shuffledFallback.slice(0, needed)];
+                    }
+                }
+
+                setRelatedRecipes(combined);
             } else {
                 const { data: fallbackData, error: fallbackError } = await supabase
                     .from('recipes')

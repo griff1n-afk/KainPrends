@@ -1,6 +1,6 @@
 .profile-page-wrapper {
     background-color: #004643; 
-    min-height: 100vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
     color: #fffffe; 

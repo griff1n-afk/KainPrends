@@ -1,6 +1,6 @@
 .recipe-detail-page {
     background-color: #abd1c6;
-    min-height: 100vh;
+    flex: 1;
     padding-bottom: 60px;
 }
 

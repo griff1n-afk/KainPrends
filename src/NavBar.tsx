@@ -134,7 +134,7 @@ export default function NavBar(){
             </ul>
 
             <div className="navbar-right-cluster">
-                {currentUser && !isPasswordRecovery && (
+                {showLoggedInUI && (
                     <div className="notif-wrapper" ref={notifRef}>
                         <button type="button" className="notif-bell-btn" onClick={toggleNotifMenu}>
                             <Bell size={20} />
@@ -182,7 +182,7 @@ export default function NavBar(){
                 <div className='navbar-actions'>
                     {loading ? (
                         <div className="navbar-actions-skeleton" />
-                    ) : currentUser && !isPasswordRecovery  ? (
+                    ) : showLoggedInUI  ? (
                         <div className='profile-menu-wrapper'>
                             <button type='button' className='profile-avatar-btn' onClick={toggleProfileMenu}>
                                 {profileData?.avatar_url ? (
@@ -244,7 +244,7 @@ export default function NavBar(){
                     <div className="mobile-menu-divider" />
 
                     <div className="mobile-menu-actions">
-                        {loading ? null : currentUser && !isPasswordRecovery  ? (
+                        {loading ? null : showLoggedInUI  ? (
                             <>
                                 <Link to={`/profile/${profileData?.username}`} className="mobile-menu-item" onClick={closeMobileMenu}>
                                     Profile
