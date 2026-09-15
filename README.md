@@ -12,7 +12,7 @@ Vite, and Supabase.
 ![KainPrends Preview](./docs/KP_SS.jpg)
 
 ## ✨ Features
-
+![alt text](image.png)
 - Search recipes by title and ingredients
 - Multi-category filtering and sorting
 - Detailed recipe pages
