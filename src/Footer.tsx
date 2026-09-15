@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'; 
 import './Footer.css'
-import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function(){
 
@@ -29,9 +30,9 @@ export default function(){
                     <div className="footer-social">
                         <h4>Follow Us</h4>
                         <div className="footer-social-icons">
-                            <a href="#" aria-label="Instagram"><FaInstagram size={18} /></a>
-                            <a href="#" aria-label="Facebook"><FaFacebook size={18} /></a>
-                            <a href="#" aria-label="Twitter"><FaTwitter size={18} /></a>
+                            <a href="https://www.instagram.com/grffnashley/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram size={18} /></a>
+                            <a href="https://www.facebook.com/GrffnAshley/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook size={18} /></a>
+                            <a href="https://x.com/GRIFFIN42280801" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><FaXTwitter size={18} /></a>
                         </div>
                     </div>
                 </div>
