@@ -56,6 +56,13 @@ export default function RecipesPage(){
     };
 
     useEffect(() => {
+        document.title = 'Recipes | KainPrends';
+        return () => {
+            document.title = 'KainPrends';
+        };
+    }, []);
+
+    useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target as Node)) {
             setSortDropdownOpen(false);

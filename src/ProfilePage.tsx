@@ -148,6 +148,15 @@ export default function ProfilePage(){
         setLoadingGrid(false);
     };
 
+    useEffect(() => {
+        if (profile) {
+            document.title = `${profile.username} | KainPrends`;
+        }
+        return () => {
+            document.title = 'KainPrends';
+        };
+    }, [profile]);
+
     useEffect( () => {
         if (!profile?.id) return;
         fetchGridData(profile.id);

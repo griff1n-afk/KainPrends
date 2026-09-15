@@ -1,10 +1,18 @@
 import './AboutPage.css'
 import { Link } from "react-router-dom"
+import {useEffect} from 'react'
 import { ArrowUpRight, ArrowRight, Compass, Heart, ChefHat } from 'lucide-react'
 import aboutOurStoryImg from './assets/about-ourstory.png';
 import aboutCreatorImg from './assets/about-creator.jpg';
 
 export default function AboutPage(){
+
+    useEffect(() => {
+        document.title = 'About | KainPrends';
+        return () => {
+            document.title = 'KainPrends';
+        };
+    }, []);
 
     return(
         <>

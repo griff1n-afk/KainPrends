@@ -14,6 +14,13 @@ export default function LogIn(){
     const { currentUser, authChecked } = useAuth();
 
     useEffect(() => {
+        document.title = 'Login/Signup | KainPrends';
+        return () => {
+            document.title = 'KainPrends';
+        };
+    }, []);
+
+    useEffect(() => {
         if (authChecked && currentUser) {
             navigate('/');
         }

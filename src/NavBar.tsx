@@ -123,7 +123,8 @@ export default function NavBar(){
     return(
         <nav className='navbar'>
             <Link to="/" className='navbar-logo'>
-                Kain<span>Prends</span>
+                <img src="/KP logo 512x512.png" alt="KainPrends logo" className="navbar-logo-icon" />
+                <span className="navbar-logo-text">Kain<span>Prends</span></span>
             </Link>
 
             <ul className='navbar-links'>

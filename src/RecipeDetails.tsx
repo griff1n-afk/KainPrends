@@ -38,6 +38,15 @@ export default function RecipeDetails(){
     };
 
     useEffect(() => {
+        if (recipe) {
+            document.title = `${recipe.title} | KainPrends`;
+        }
+        return () => {
+            document.title = 'KainPrends';
+        };
+    }, [recipe]);
+
+    useEffect(() => {
         if (!id) return;
         const fetchRecipe = async () => {
             setLoading(true);

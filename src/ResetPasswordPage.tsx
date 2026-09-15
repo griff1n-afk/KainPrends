@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 import './ResetPasswordPage.css'
@@ -43,6 +43,13 @@ export default function ResetPasswordPage() {
             navigate('/');
         }, 2000);
     };
+
+    useEffect(() => {
+        document.title = 'Reset Password | KainPrends';
+        return () => {
+            document.title = 'KainPrends';
+        };
+    }, []);
 
     return (
         <>

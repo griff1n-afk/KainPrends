@@ -16,6 +16,13 @@
     font-weight: 600;
     text-decoration: none;
     color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.navbar-logo-icon {
+    height: 32px;
+    width: auto;
 }
 .navbar-logo span {
     color: #001e1d;

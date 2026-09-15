@@ -46,6 +46,13 @@ export default function HomePage(){
 
     const { favoritedIds, toggleFavorite } = useFavorites(currentUser?.id ?? null);
 
+    useEffect(() => {
+        document.title = 'Home | KainPrends';
+        return () => {
+            document.title = 'KainPrends';
+        };
+    }, []);
+
     useEffect ( () => {
         const interval = setInterval( () => {
             setCurrentSlide( (prev) => (prev + 1) % heroImages.length)
