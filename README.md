@@ -1,38 +1,40 @@
 # 🍽️ KainPrends
 
-KainPrends is a Filipino-inspired recipe discovery web application designed to make finding and exploring recipes simple and enjoyable.
+A modern recipe discovery web application built with React, TypeScript,
+Vite, and Supabase.
 
-The project was built as part of my web development portfolio and focuses on creating a clean, responsive, and user-friendly recipe browsing experience.
+## 🍴 About the Name
+
+**KainPrends** combines *kain* (Filipino for "eat") with *prends*, a playful name I use for friends that evolved from the commonly used Filipino nickname *pre*.
+
+🌐 **Live Demo:** [kainprends.vercel.app](https://kainprends.vercel.app)
+
+![KainPrends Preview](./docs/KP_SS.jpg)
 
 ## ✨ Features
 
-- Browse and discover recipes
-- Search recipes by name and ingredients
-- Multi-ingredient search
-- Filter recipes by category
-- Sort and filter by preparation time
-- Detailed recipe pages with ingredients and cooking instructions
-- User authentication
-- Favorite recipes
-- User profile management
-- Recipe notifications
+- Search recipes by title and ingredients
+- Multi-category filtering and sorting
+- Detailed recipe pages
+- User authentication and password recovery
+- Save and manage favorite recipes
+- Responsive desktop, tablet, and mobile design
+- Supabase database with Row Level Security
 
-## 🛠️ Built With
+## 🛠️ Tech Stack
 
-- React
-- TypeScript
-- Vite
-- Supabase
-- CSS
+**Frontend:** React, TypeScript, Vite, React Router  
+**Backend:** Supabase (PostgreSQL, Auth, RLS)  
+**Deployment:** Vercel  
+**Version Control:** Git & GitHub
 
-## 🚧 Project Status
+## ⚠️ Portfolio Demo
 
-KainPrends is currently under active development. More features and improvements are being added.
+KainPrends is a portfolio demonstration project.
 
-## 📸 Screenshots
+Email confirmation is intentionally disabled and OAuth/social login is
+not implemented to make it easier for reviewers to create an account
+and explore the application's authenticated features.
 
-Screenshots and previews will be added as the project develops.
-
-## 👨‍💻 Developer
-
-Developed by Griffin as a portfolio project.
+These choices are specific to the portfolio demo and do not represent
+the authentication configuration I would use for a production application.
